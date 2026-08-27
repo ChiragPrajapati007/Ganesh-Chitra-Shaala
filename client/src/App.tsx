@@ -21,7 +21,7 @@ const CheckoutPage = lazy(() => import("./pages/UtilityPages").then((module) => 
 const WishlistPage = lazy(() => import("./pages/UtilityPages").then((module) => ({ default: module.WishlistPage })));
 const CraftPage = lazy(() => import("./pages/UtilityPages").then((module) => ({ default: () => <module.InfoPage kind="craft" /> })));
 const AboutPage = lazy(() => import("./pages/UtilityPages").then((module) => ({ default: () => <module.InfoPage kind="about" /> })));
-const ContactPage = lazy(() => import("./pages/UtilityPages").then((module) => ({ default: () => <module.InfoPage kind="contact" /> })));
+const ContactPage = lazy(() => import("./pages/Contact"));
 
 function Router() {
   return <Switch>

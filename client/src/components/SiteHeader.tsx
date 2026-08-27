@@ -6,11 +6,11 @@ import { Brand } from "@/components/Brand";
 import { useStore } from "@/contexts/StoreContext";
 
 const links = [
-  ["Idols", "/idols"],
   ["Collections", "/idols"],
   ["Custom", "/custom"],
   ["Our Craft", "/craft"],
   ["About", "/about"],
+  ["Contact", "/contact"],
 ] as const;
 
 export default function SiteHeader({ onSearch }: { onSearch: () => void }) {
@@ -43,7 +43,7 @@ export default function SiteHeader({ onSearch }: { onSearch: () => void }) {
       {menuOpen && <div id="mobile-primary-navigation" className="mobile-nav mobile-nav--open" style={{ backgroundColor: "var(--paper)", backgroundImage: "none", opacity: 1 }}>
         <div className="mobile-nav__top"><Brand compact /><button aria-label="Close menu" onClick={() => setMenuOpen(false)}><X /></button></div>
         <p className="mobile-nav__eyebrow">Explore the studio</p>
-        <div className="mobile-nav__links">{links.map(([label, href], i) => <Link key={label} href={href} onClick={() => setMenuOpen(false)}><span>0{i + 1}</span>{label}{["Custom", "Our Craft", "About"].includes(label) && <small>Studio</small>}</Link>)}</div>
+        <div className="mobile-nav__links">{links.map(([label, href], i) => <Link key={label} href={href} onClick={() => setMenuOpen(false)}><span>0{i + 1}</span>{label}{["Custom", "Our Craft", "About", "Contact"].includes(label) && <small>Studio</small>}</Link>)}</div>
         <p>Considered forms, shaped for celebration.</p>
       </div>}
     </header>

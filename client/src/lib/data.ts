@@ -8,12 +8,12 @@ export const siteConfig = {
   tagline: "A form of joy, shaped by hand.",
   demoNotice: "Prototype content — replace with verified studio information before launch.",
   contact: {
-    phone: "[Demo Number]",
-    whatsapp: "[Demo Number]",
-    email: "[Demo Email]",
-    address: "[Demo Studio Address — to be provided]",
-    hours: "[Demo business hours — to be confirmed]",
-    instagram: "[Demo Instagram URL]",
+    phone: "+91 99670 59099",
+    whatsapp: "9967059099",
+    email: "sameer14patil@gmail.com",
+    address: "House No. 113, Ganesh Nivas, Near Datta Mandir, Navghar Goan, Bhayandar East",
+    hours: "Mon – Sat: 9:00 AM – 8:00 PM",
+    instagram: "[Instagram URL]",
   },
   festivalDate: "2026-09-14T06:00:00+05:30",
   images: {
