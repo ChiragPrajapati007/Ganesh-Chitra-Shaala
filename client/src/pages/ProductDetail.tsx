@@ -1,0 +1,20 @@
+/** The Atelier Procession: a product page gives the idol generous visual presence and keeps demo specifications clearly honest. */
+import { useState } from "react";
+import { ArrowLeft, Heart, Minus, Plus, Ruler, ShoppingBag } from "lucide-react";
+import { Link, useRoute } from "wouter";
+import ProductCard, { formatINR } from "@/components/ProductCard";
+import { GestureDivider } from "@/components/Brand";
+import SiteFooter from "@/components/SiteFooter";
+import { products, siteConfig } from "@/lib/data";
+import { useStore } from "@/contexts/StoreContext";
+
+export default function ProductDetail() {
+  const [, params] = useRoute("/product/:slug");
+  const product = products.find((item) => item.slug === params?.slug) ?? products[0];
+  const [active, setActive] = useState(product.image);
+  const [quantity, setQuantity] = useState(1);
+  const { addToCart, toggleWishlist, wishlist, setCartOpen } = useStore();
+  const saved = wishlist.includes(product.id);
+  const addMultiple = () => { for (let i = 0; i < quantity; i++) addToCart(product.id); };
+  return <main className="page-shell product-page"><div className="product-back"><Link href="/idols"><ArrowLeft size={16}/> Back to the collection</Link><span>Demo product detail</span></div><section className="product-layout"><div className="product-gallery"><div className="product-gallery__main"><img src={active} alt={`${product.name} — demo product image`} /></div><div className="product-gallery__thumbs">{[product.image, product.secondaryImage, siteConfig.images.craft].map((image, index) => <button key={`${image}-${index}`} onClick={() => setActive(image)} className={active === image ? "is-active" : ""}><img src={image} alt={`View ${index + 1}`} /></button>)}</div></div><div className="product-summary"><p className="section-label"><span>Collection</span>{product.category}</p><h1>{product.name}</h1><p className="product-summary__price">{formatINR(product.price)}</p><div className="product-summary__spec"><span><Ruler size={17}/> {product.size}</span><span>{product.material}</span><span className="availability-dot">{product.availability}</span></div><GestureDivider compact/><p className="product-summary__description">{product.description}</p><p className="demo-note demo-note--inset">{siteConfig.demoNotice}</p><div className="product-summary__actions"><div className="product-quantity"><button onClick={() => setQuantity(Math.max(1, quantity - 1))} aria-label="Reduce quantity"><Minus size={15}/></button><span>{quantity}</span><button onClick={() => setQuantity(quantity + 1)} aria-label="Increase quantity"><Plus size={15}/></button></div><button className="btn btn--dark" onClick={addMultiple}>Add to cart <ShoppingBag size={16}/></button><button className={`save-button ${saved ? "is-saved" : ""}`} onClick={() => toggleWishlist(product.id)} aria-label="Save to wishlist"><Heart size={18} fill={saved ? "currentColor" : "none"}/></button></div><button className="buy-now" onClick={() => { addMultiple(); setCartOpen(true); }}>Buy now <span>Checkout opens from your demo bag</span></button><div className="product-accordions"><details open><summary>Product details <Plus size={16}/></summary><p>Dimensions, material, weight and finish are prototype fields pending verified studio information.</p></details><details><summary>Delivery information <Plus size={16}/></summary><p>[Demo delivery information — replace with client-approved terms.]</p></details><details><summary>Care information <Plus size={16}/></summary><p>[Demo care information — replace with studio guidance.]</p></details></div></div></section><section className="related section-pad"><div className="section-heading section-heading--row"><div><p className="section-label"><span>Next</span>Continue your search</p><h2>Related <em>forms.</em></h2></div><Link href="/idols" className="text-link">View collection</Link></div><div className="product-grid">{products.filter((item) => item.id !== product.id).slice(0, 4).map((item, index) => <ProductCard product={item} index={index} key={item.id}/>)}</div></section></main>;
+}
